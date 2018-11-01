@@ -17,27 +17,28 @@ ArrayList<MyClass> myArrayList = new ArrayList<MyClass>();
 
 void setup() {
   size(600, 600);
+  
 }
 
 void draw() {
   background(230);
-  
+
+
   if (frameCount % 30 == 0) {
     myArrayList.add(new MyClass(random(width), random(height)));
   }
-  
+
   for (int i = 0; i < myArrayList.size(); i++) {
     MyClass obj = myArrayList.get(i);
     obj.update();
     obj.display();
   }
-  
+
   for (int i = myArrayList.size() - 1; i >= 0; i--) {
     MyClass obj = myArrayList.get(i);
-   if (obj.isTimeUp() == true) {
-     myArrayList.remove(i);
-   }
-
+    if (obj.isTimeUp() == true) {
+      myArrayList.remove(i);
+    }
   }
 }
 
@@ -46,21 +47,28 @@ class MyClass {
   float x; 
   float y;
   float timeRemaining;
-  
+
+  PImage pikachu;
+
   MyClass(float x, float y) {
     this.x = x;
     this.y = y;
     this.timeRemaining = 180;
+    pikachu = loadImage("pokemon_gif.gif");
+    
   }
-  
+
   void update() {
     timeRemaining--;
   }
-  
+
   void display() {
-    ellipse(x, y, timeRemaining, timeRemaining);
+    //ellipse(x, y, timeRemaining, timeRemaining);
+    int size = int(map(timeRemaining, 100, 0, 100, 0));
+    //pikachu.resize(size, size);
+    image(pikachu, x, y);
   }
-  
+
   boolean isTimeUp() {
     if (timeRemaining <= 0) {
       return true;
